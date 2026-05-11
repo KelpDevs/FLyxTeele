@@ -4,8 +4,11 @@ import { handleUpdate } from "./bot.ts";
 Deno.serve(async (req) => {
   const url = new URL(req.url);
 
-  if (req.method === "POST" && url.pathname === "/bot") {
-    return await handleUpdate(req);
+  if (url.pathname === "/bot") {
+    if (req.method === "POST") {
+      return await handleUpdate(req);
+    }
+    return new Response("Bot is running");
   }
 
   return serveDir(req, {
