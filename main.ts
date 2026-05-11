@@ -1,5 +1,4 @@
 import { Bot, Context, webhookCallback } from "grammy";
-import { load } from "jsr:@std/dotenv";
 
 const TOKEN = Deno.env.get("BOT_TOKEN");
 
