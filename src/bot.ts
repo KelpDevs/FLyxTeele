@@ -1,12 +1,9 @@
-import { Bot, Context } from "grammy";
-import { CONFIG } from "./config";
-import { handleBuatToko, handleStart } from "./handlers/commands";
+import { Bot, webhookCallback } from "grammy";
+import { serveDir } from "https://jsr.io/@std/http/1.0.25/file_server.ts";
 
-export const bot = new Bot(CONFIG.TOKEN);
+const kv = await Deno.openKv();
+const bot = new Bot(Deno.env.get("BOT_TOKEN") || "");
 
-bot.command("start", handleStart);
-bot.command("buat_toko", handleBuatToko);
+bot.command("start", (ctx) => ctx.reply("Selamat datang di Flyxteele Bot!"));
 
-bot.on("message:text", (ctx) =>
-  ctx.reply("Gunakan menu bantuan untuk navigasi."),
-);
+export const handleUpdate = webhookCallback(bot, "std/http");

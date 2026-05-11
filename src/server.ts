@@ -1,8 +1,5 @@
-import { webhookCallback } from "grammy";
-import { bot } from "./bot.ts";
-import { renderUI } from "./web/layout.ts";
-
-const handleUpdate = webhookCallback(bot, "std/http");
+import { serveDir } from "https://jsr.io/@std/http/1.0.25/file_server.ts";
+import { handleUpdate } from "./bot.ts";
 
 Deno.serve(async (req) => {
   const url = new URL(req.url);
@@ -11,7 +8,8 @@ Deno.serve(async (req) => {
     return await handleUpdate(req);
   }
 
-  return new Response(renderUI(), {
-    headers: { "content-type": "text/html" },
+  return serveDir(req, {
+    fsRoot: "_site",
+    quiet: true,
   });
 });
