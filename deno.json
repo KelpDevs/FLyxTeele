@@ -46,7 +46,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "lume"
   },
-  "unstable": ["fmt-component"],
+  "unstable": ["fmt-component", "kv"],
   "allowScripts": {
     "deny": ["npm:sharp"]
   },
